@@ -2,6 +2,10 @@
 
 Imagine the world where tasks are easy to complete and track.
 
+## Future Considerations
+- `ThemeProvider` vs `Theme`. Okay for now, cleaner code is more advantageuos rather than too much providers that might affect performance or have negative impact on other providers
+- colors needs more contrast
+
 ### Development
 
 Install dependencies with `npm install`.
