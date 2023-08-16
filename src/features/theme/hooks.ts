@@ -1,8 +1,16 @@
 import { useColorScheme } from 'react-native';
+import type { ColorSchemeName } from 'react-native';
 
-import { Theme } from './type';
+export type Theme = {
+  colors: {
+    DARK: string;
+    LIGHT: string;
+    PRIMARY: string;
+    SECONDARY: string;
+  };
+};
 
-export const useTheme = <T>(themeableStyles: (theme: Theme) => T) => {
+export const useTheme = <T>(themeableStyles: (theme: Theme, colorScheme: ColorSchemeName) => T) => {
   const colorScheme = useColorScheme();
 
   let colors = null;
@@ -15,7 +23,8 @@ export const useTheme = <T>(themeableStyles: (theme: Theme) => T) => {
   }
 
   const theme: Theme = {
+    // @ts-expect-error colors needs typing
     colors,
   };
-  return themeableStyles(theme);
+  return themeableStyles(theme, colorScheme);
 };

@@ -1,0 +1,25 @@
+on:
+  push:
+    branches:
+      - master
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🏗 Setup repo
+        uses: actions/checkout@v2
+
+      - name: 🏗 Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+          cache: npm
+
+      - name: 📦 Install dependencies
+        run: npm install
+
+      - name: ✅ Code style check
+        run: npm run test:lint
+
+      - name: 🕵️ Types check
+        run: npm run test:types

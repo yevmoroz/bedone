@@ -1,8 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
 
-import { useTheme } from '../theme/hooks';
-import { Theme } from '../theme/type';
+import { useTheme, Theme } from '../theme/hooks';
 
 type Props = {
   children?: JSX.Element | JSX.Element[];
@@ -24,6 +23,6 @@ const styles = (theme: Theme) =>
       flex: 1,
       alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor: theme.colors.PRIMARY,
+      backgroundColor: theme.colors.SECONDARY,
     },
   });

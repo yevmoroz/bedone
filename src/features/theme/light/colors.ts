@@ -1,2 +1,5 @@
-export const PRIMARY = '#ffffff';
-export const SECONDARY = '#333333';
+export const LIGHT = '#FFFFFF';
+export const DARK = '#1D1D1D';
+
+export const PRIMARY = DARK;
+export const SECONDARY = LIGHT;

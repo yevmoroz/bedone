@@ -26,6 +26,11 @@ const config: ExpoConfig = {
       foregroundImage: './assets/adaptive-icon.png',
     },
   },
+  extra: {
+    eas: {
+      projectId: 'a0c20cc2-91a8-4bf0-a39c-56c780a8d5e8',
+    },
+  },
 };
 
 export default config;

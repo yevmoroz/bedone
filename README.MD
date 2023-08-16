@@ -1,25 +1,11 @@
-## Expo starter
+## BeDone
 
-Expo starter package, includes:
-- Expo with TypeScript support
-- Theme base styles
-- ESLint + Prettier
-- Feature based architecture
-
-### Fork
-
-After you fork project under it's new name, update `expo-starter` in `package.json` file to reflect the change.
+Imagine the world where tasks are easy to complete and track.
 
 ### Development
 
-Install dependencies with `npm install`. Create new project in Expo via [this link](https://expo.dev/) and following instructions how to set it up.
+Install dependencies with `npm install`.
 Start developement by running regular `npm start`. Follow on screen prompt to setup expo on iOS/Android device.
-
-### WSL support
-
-If you're using WSL, there is no initial support for routes from WSL through Windows to iOS/Android device. In order to make such support feel free to make use of `scripts/wslbridge.ps1`.
-
-Run on windows `scripts/wslbridge.ps1` and use `npm run start:wsl` instead of regular start.
 
 ### References
 - [Expo](https://expo.dev/)

@@ -1,7 +1,6 @@
 import { StyleSheet, View, Text, Pressable } from 'react-native';
 
-import { useTheme } from '../theme/hooks';
-import { Theme } from '../theme/type';
+import { useTheme, Theme } from '../theme/hooks';
 
 type Props = {
   onPress: () => void;
@@ -26,11 +25,11 @@ const styles = (theme: Theme) =>
       padding: 10,
       minWidth: 200,
       borderRadius: 5,
-      backgroundColor: theme.colors.SECONDARY,
+      backgroundColor: theme.colors.PRIMARY,
       alignItems: 'center',
     },
     text: {
-      color: theme.colors.PRIMARY,
+      color: theme.colors.SECONDARY,
       fontWeight: 'bold',
       fontSize: 20,
     },
