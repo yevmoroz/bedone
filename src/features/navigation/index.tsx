@@ -21,7 +21,7 @@ export const Navigation: React.FC = () => {
           name="welcome"
           component={WelcomeScreen}
           options={{
-            title: '✔BeDone',
+            title: 'Welcome',
           }}
         />
       </Stack.Navigator>

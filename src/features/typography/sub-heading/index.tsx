@@ -12,8 +12,6 @@ const styles = (theme: Theme) =>
   StyleSheet.create({
     text: {
       fontSize: 18,
-      lineHeight: 27,
-      letterSpacing: 1,
       color: theme.colors.PRIMARY,
     },
   });

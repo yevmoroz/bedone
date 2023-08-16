@@ -5,6 +5,7 @@ Imagine the world where tasks are easy to complete and track.
 ## Future Considerations
 - `ThemeProvider` vs `Theme`. Okay for now, cleaner code is more advantageuos rather than too much providers that might affect performance or have negative impact on other providers
 - colors needs more contrast
+- `@expo/vector-icons` is [built](https://docs.expo.dev/guides/icons/#expovector-icons) on top of `react-native-vector-icons`
 
 ### Development
 
