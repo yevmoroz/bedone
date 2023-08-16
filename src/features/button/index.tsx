@@ -25,11 +25,11 @@ const styles = (theme: Theme) =>
       padding: 10,
       minWidth: 200,
       borderRadius: 5,
-      backgroundColor: theme.colors.PRIMARY,
+      backgroundColor: theme.colors.ALTERNATE,
       alignItems: 'center',
     },
     text: {
-      color: theme.colors.SECONDARY,
+      color: theme.colors.PRIMARY,
       fontWeight: 'bold',
       fontSize: 20,
     },
