@@ -1,5 +1,11 @@
-import { Navigation } from '../navigation';
+import { NavigationContainer } from '@react-navigation/native';
+
+import { Tasks } from '../tasks';
 
 export const Entrance: React.FC = () => {
-  return <Navigation />;
+  return (
+    <NavigationContainer>
+      <Tasks />
+    </NavigationContainer>
+  );
 };

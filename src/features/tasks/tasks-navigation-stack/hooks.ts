@@ -1,4 +1,7 @@
-import { Themeable, useTheme } from '../theme/hooks';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
+
+import { RootStackParamList } from './stacks';
+import { Themeable, useTheme } from '../../theme/hooks';
 
 export const useNavigatorScreenOptions = <T extends { header: any }>(styles: Themeable<T>) => {
   const themedStyles = useTheme(styles);
@@ -14,4 +17,13 @@ export const useNavigatorScreenOptions = <T extends { header: any }>(styles: The
   };
 
   return screenOptions;
+};
+
+export const useTasksNavigation = () => {
+  const { navigate } = useNavigation<NavigationProp<RootStackParamList, 'Tasks'>>();
+
+  return {
+    toTasks: () => navigate('Tasks'),
+    toTaskDetails: () => navigate('TaskDetails'),
+  };
 };
