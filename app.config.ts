@@ -16,6 +16,7 @@ const config: ExpoConfig = {
   },
   updates: {
     fallbackToCacheTimeout: 0,
+    useClassicUpdates: true,
   },
   assetBundlePatterns: ['**/*'],
   ios: {
