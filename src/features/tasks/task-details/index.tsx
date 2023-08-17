@@ -94,12 +94,16 @@ export const TaskDetails: React.FC = () => {
         <Pressable onPress={enterEdit}>
           <SubHeading>{task.description}</SubHeading>
         </Pressable>
-        <Spacer space={24} />
-        <Button onPress={onComplete}>
-          <Feather name="check-circle" size={24} color={themedStyles.checkmark.color} />
-          {'\u00A0'}
-          Mark as complete
-        </Button>
+        {!task.completed && (
+          <Fragment>
+            <Spacer space={24} />
+            <Button onPress={onComplete}>
+              <Feather name="check-circle" size={24} color={themedStyles.checkmark.color} />
+              {'\u00A0'}
+              Mark as complete
+            </Button>
+          </Fragment>
+        )}
         <Spacer space={24} />
         <Pressable onPress={enterEdit}>
           <Small>Hint: tapping on a text enables it for modifications</Small>
