@@ -25,7 +25,7 @@ export const Welcome: React.FC<Props> = (props) => {
       <Spacer space={12} />
       <SubHeading>Imagine the world of smooth task creation</SubHeading>
       <Spacer space={32} />
-      <Button onPress={() => props.onRedirect('TaskDetails')}>Start clean</Button>
+      <Button onPress={() => props.onRedirect('Tasks')}>Start clean</Button>
       <Spacer space={12} />
       <Button
         onPress={() => {

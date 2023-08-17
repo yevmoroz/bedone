@@ -14,7 +14,7 @@ import { useTasksNavigation, useTasksRoute } from '../tasks-navigation-stack/hoo
 export const TaskDetails: React.FC = () => {
   const themedStyles = useTheme(styles);
   const { id } = useTasksRoute();
-  const { goBack } = useTasksNavigation();
+  const { toTasks } = useTasksNavigation();
 
   const [task, setTask] = useState<TaskData>();
   const [title, setTitle] = useState<string>('');
@@ -37,7 +37,7 @@ export const TaskDetails: React.FC = () => {
       });
     } else {
       result = addTask({ title, description });
-      goBack();
+      toTasks();
     }
     setTask(result);
     setEdit(false);
@@ -45,7 +45,7 @@ export const TaskDetails: React.FC = () => {
   const onComplete = useCallback(() => {
     if (id && task) {
       updateTaskById(id, { ...task, completed: true });
-      goBack();
+      toTasks();
     }
   }, [id, task]);
 
