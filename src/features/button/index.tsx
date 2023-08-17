@@ -4,7 +4,7 @@ import { useTheme, Theme } from '../theme/hooks';
 
 type Props = {
   onPress: () => void;
-  children: string;
+  children: React.ReactNode;
 };
 
 export const Button: React.FC<Props> = (props) => {
@@ -21,7 +21,6 @@ export const Button: React.FC<Props> = (props) => {
 const styles = (theme: Theme) =>
   StyleSheet.create({
     container: {
-      margin: 10,
       padding: 10,
       minWidth: 200,
       borderRadius: 5,

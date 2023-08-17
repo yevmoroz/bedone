@@ -1,14 +1,16 @@
 import { useState } from 'react';
 
-import { hasTasks } from './data';
 import { TasksNavigationStack } from './tasks-navigation-stack';
 import { Welcome } from './welcome';
+import { ScreenContainerHOC } from '../screen-container';
+
+export const WelcomeScreen = ScreenContainerHOC(Welcome);
 
 export const Tasks = () => {
-  const [startWithNewTask, setStartWithNewTask] = useState(false);
-  if (hasTasks() || startWithNewTask) {
-    return <TasksNavigationStack startWithNewTask={startWithNewTask} />;
+  const [startWith, setStartWith] = useState<'TaskDetails' | 'Tasks'>();
+  if (startWith) {
+    return <TasksNavigationStack startWith={startWith} />;
   }
 
-  return <Welcome onSubmit={() => setStartWithNewTask(true)} />;
+  return <WelcomeScreen onRedirect={(nextRoute) => setStartWith(nextRoute)} />;
 };

@@ -1,6 +1,6 @@
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 
-import { RootStackParamList } from './stacks';
+import { TasksNavigationStackParamList } from './stacks';
 import { Themeable, useTheme } from '../../theme/hooks';
 
 export const useNavigatorScreenOptions = <T extends { header: any }>(styles: Themeable<T>) => {
@@ -20,10 +20,10 @@ export const useNavigatorScreenOptions = <T extends { header: any }>(styles: The
 };
 
 export const useTasksNavigation = () => {
-  const { navigate } = useNavigation<NavigationProp<RootStackParamList, 'Tasks'>>();
+  const { navigate } = useNavigation<NavigationProp<TasksNavigationStackParamList, 'Tasks'>>();
 
   return {
     toTasks: () => navigate('Tasks'),
-    toTaskDetails: () => navigate('TaskDetails'),
+    toTaskDetails: (id: string | null) => navigate('TaskDetails', { id }),
   };
 };

@@ -1,4 +1,4 @@
-export type RootStackParamList = {
+export type TasksNavigationStackParamList = {
   Tasks: undefined;
-  TaskDetails: undefined;
+  TaskDetails: { id: string | null };
 };

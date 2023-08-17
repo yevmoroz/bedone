@@ -1,3 +1,7 @@
+import { customAlphabet } from 'nanoid/non-secure';
+
+const nanoid = customAlphabet('abcdefghijklmnopqrstuvwxyz0123456789', 10);
+
 export type TaskDataMin = {
   id: string;
   title: string;
@@ -28,10 +32,17 @@ export const getTaskListGrouppedByCompletion = (): Record<'completed' | 'open', 
   return grouppedByCompletion;
 };
 
-export const getTaskById = (id: string): TaskData | null => {
+export const getTaskById = (id: string): TaskData => {
   if (!data[id]) {
-    return null;
+    throw new Error('No task for given id');
   }
+  return { id, ...data[id] };
+};
+
+export const addTask = (payload: Omit<TaskData, 'id' | 'completed'>): TaskData => {
+  const id = nanoid();
+  data[id] = { ...payload, completed: false };
+
   return { id, ...data[id] };
 };
 
@@ -43,4 +54,19 @@ export const updateTaskById = (id: string, payload: Omit<TaskData, 'id'>): TaskD
   data[id] = { ...data[id], ...payload };
 
   return { id, ...data[id] };
+};
+
+export const inspiration = () => {
+  addTask({
+    title: 'Look outside your window',
+    description: 'Nature is beautiful, try embracing it',
+  });
+  addTask({
+    title: 'Get coffee',
+    description: 'Long known drink that stimulates the brain. Consider yerba mate for change',
+  });
+  addTask({
+    title: 'Check on your collegues',
+    description: 'There are stories to tell, no doubt there is plenty to share',
+  });
 };
