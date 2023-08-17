@@ -1,26 +1,44 @@
 import { Feather } from '@expo/vector-icons';
-import { Fragment } from 'react';
+import { useIsFocused } from '@react-navigation/native';
+import { Fragment, useEffect, useState } from 'react';
 import { Pressable, SectionList, StyleSheet, Text, View } from 'react-native';
 
+import { Button } from '../../button';
 import { Spacer } from '../../spacer';
 import { Theme, useTheme } from '../../theme/hooks';
-import { getTaskListGrouppedByCompletion } from '../data';
+import { TaskDataMin, getTaskListGrouppedByCompletion } from '../data';
 import { useTasksNavigation } from '../tasks-navigation-stack/hooks';
+
+const EMPTY_ARRAY = [];
+
+type TaskListSection = { data: TaskDataMin[]; completed: boolean };
 
 export const TaskList = () => {
   const themedStyles = useTheme(styles);
-  const grouppedTasks = getTaskListGrouppedByCompletion();
+  const [data, setData] = useState<TaskListSection[]>(EMPTY_ARRAY);
   const { toTaskDetails } = useTasksNavigation();
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    if (isFocused) {
+      const grouppedTasks = getTaskListGrouppedByCompletion();
+      setData([
+        { data: grouppedTasks.open, completed: false },
+        { data: grouppedTasks.completed, completed: true },
+      ]);
+    }
+  }, [isFocused]);
 
   return (
     <Fragment>
       <Spacer space={12} />
+      <View style={themedStyles.container}>
+        <Button onPress={() => toTaskDetails(null)}>Add Task</Button>
+      </View>
+      <Spacer space={24} />
       <SectionList
         style={themedStyles.container}
-        sections={[
-          { data: grouppedTasks.open, completed: false },
-          { data: grouppedTasks.completed, completed: true },
-        ]}
+        sections={data}
         keyExtractor={(item) => item.id}
         renderItem={({ item, section }) => (
           <Pressable onPress={() => toTaskDetails(item.id)}>
@@ -69,10 +87,10 @@ const styles = (theme: Theme) =>
       margin: 12,
       padding: 12,
       borderRadius: 3,
-      backgroundColor: theme.colors.PRIMARY,
+      backgroundColor: theme.colors.ALTERNATE,
     },
     taskListItemText: {
-      color: theme.colors.SECONDARY,
+      color: theme.colors.PRIMARY,
     },
     emptyTasks: {
       marginLeft: 12,

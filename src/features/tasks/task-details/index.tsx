@@ -1,6 +1,5 @@
 import { Feather } from '@expo/vector-icons';
-import { RouteProp, useRoute } from '@react-navigation/native';
-import { Fragment, useState } from 'react';
+import { Fragment, useCallback, useEffect, useState } from 'react';
 import { Pressable, StyleSheet, TextInput, View } from 'react-native';
 
 import { Button } from '../../button';
@@ -10,30 +9,51 @@ import { Heading } from '../../typography/heading';
 import { Small } from '../../typography/small';
 import { SubHeading } from '../../typography/sub-heading';
 import { TaskData, addTask, getTaskById, updateTaskById } from '../data';
-import { TasksNavigationStackParamList } from '../tasks-navigation-stack/stacks';
+import { useTasksNavigation, useTasksRoute } from '../tasks-navigation-stack/hooks';
 
 export const TaskDetails: React.FC = () => {
   const themedStyles = useTheme(styles);
-  const route = useRoute<RouteProp<TasksNavigationStackParamList, 'TaskDetails'>>();
-  const id = route.params?.id;
+  const { id } = useTasksRoute();
+  const { goBack } = useTasksNavigation();
 
   const [task, setTask] = useState<TaskData>();
   const [title, setTitle] = useState<string>('');
   const [description, setDescription] = useState<string>('');
+  const [edit, setEdit] = useState<boolean>(!id);
 
-  const [edit, setEdit] = useState<boolean>(false);
-
-  const enterEdit = () => {
+  const enterEdit = useCallback(() => {
     setTitle(task?.title ?? '');
     setDescription(task?.description ?? '');
     setEdit(true);
-  };
+  }, [task]);
 
-  if (id) {
-    setTask(getTaskById(id));
-  } else if (!edit) {
-    setEdit(true);
-  }
+  const onSubmit = useCallback(() => {
+    let result;
+    if (id) {
+      result = updateTaskById(id, {
+        title,
+        description,
+        completed: task?.completed ?? false,
+      });
+    } else {
+      result = addTask({ title, description });
+      goBack();
+    }
+    setTask(result);
+    setEdit(false);
+  }, [id, title, description]);
+  const onComplete = useCallback(() => {
+    if (id && task) {
+      updateTaskById(id, { ...task, completed: true });
+      goBack();
+    }
+  }, [id, task]);
+
+  useEffect(() => {
+    if (!task && id) {
+      setTask(getTaskById(id));
+    }
+  }, [id]);
 
   let content;
 
@@ -46,32 +66,22 @@ export const TaskDetails: React.FC = () => {
           style={themedStyles.inputTitle}
           onChangeText={setTitle}
           value={title}
-          placeholder="enter title"
+          placeholder="tap to enter title here"
+          placeholderTextColor={themedStyles.inputTitle.color}
         />
         <Spacer space={24} />
         <TextInput
           style={themedStyles.inputDescription}
           onChangeText={setDescription}
           value={description}
-          placeholder="enter description"
+          multiline
+          placeholder="tap to enter description here"
+          placeholderTextColor={themedStyles.inputTitle.color}
         />
         <Spacer space={24} />
-        <Button
-          onPress={() => {
-            let result;
-            if (id) {
-              result = updateTaskById(id, {
-                title,
-                description,
-                completed: task?.completed ?? false,
-              });
-            } else {
-              result = addTask({ title, description });
-            }
-            setTask(result);
-          }}>
-          Submit
-        </Button>
+        <Button onPress={onSubmit}>Submit</Button>
+        <Spacer space={24} />
+        <Small>Hint: tapping on submit saves the task</Small>
       </Fragment>
     );
   } else if (id && task) {
@@ -85,12 +95,12 @@ export const TaskDetails: React.FC = () => {
           <SubHeading>{task.description}</SubHeading>
         </Pressable>
         <Spacer space={24} />
-        <Button onPress={() => updateTaskById(id, { ...task, completed: true })}>
+        <Button onPress={onComplete}>
           <Feather name="check-circle" size={24} color={themedStyles.checkmark.color} />
           {'\u00A0'}
           Mark as complete
         </Button>
-        <Spacer space={12} />
+        <Spacer space={24} />
         <Pressable onPress={enterEdit}>
           <Small>Hint: tapping on a text enables it for modifications</Small>
         </Pressable>
@@ -106,8 +116,8 @@ const styles = (theme: Theme) =>
     container: {
       width: '90%',
     },
-    inputTitle: { fontSize: 32, color: theme.colors.PRIMARY },
-    inputDescription: { fontSize: 18, color: theme.colors.PRIMARY },
+    inputTitle: { fontSize: 32, color: theme.colors.PRIMARY, textAlignVertical: 'top' },
+    inputDescription: { fontSize: 18, color: theme.colors.PRIMARY, textAlignVertical: 'top' },
     checkmark: {
       color: theme.colors.PRIMARY,
     },

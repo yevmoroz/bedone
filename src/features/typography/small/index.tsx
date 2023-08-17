@@ -11,7 +11,7 @@ export const Small = <P extends object>(props: P) => {
 const styles = (theme: Theme) =>
   StyleSheet.create({
     text: {
-      fontSize: 10,
+      fontSize: 12,
       color: theme.colors.PRIMARY,
     },
   });

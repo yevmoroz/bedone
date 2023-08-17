@@ -2,8 +2,6 @@ import { useColorScheme } from 'react-native';
 import type { ColorSchemeName } from 'react-native';
 
 type Colors = {
-  DARK: string;
-  LIGHT: string;
   PRIMARY: string;
   SECONDARY: string;
   ALTERNATE: string;

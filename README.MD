@@ -2,11 +2,12 @@
 
 Imagine the world where tasks are easy to complete and track.
 
-## Future Considerations
+## Considerations
 - `ThemeProvider` vs `Theme`. Okay for now, cleaner code is more advantageuos rather than too much providers that might affect performance or have negative impact on other providers
-- colors needs more contrast
-- we can make use of `useRef` and `useCallback` for a better optimization on reference objects. optional given the scale of the app
+- colors needs more contrast, hurts UX a bit but need time to make better design
+- we can make use of `useRef` and `useCallback` for a better optimization on reference objects. optional given the scale of the app, but callbacks that use more than one call opt for this already
 - `@expo/vector-icons` is [built](https://docs.expo.dev/guides/icons/#expovector-icons) on top of `react-native-vector-icons`
+- further breakdown of `TaskDetails` into a few more components, currently not needed because app is not that complex
 
 ### Development
 
